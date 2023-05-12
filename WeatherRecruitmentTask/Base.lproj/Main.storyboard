@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,16 +16,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="L1f-eV-NVP">
+                            <rect key="frame" x="0.0" y="173.33333206176758" width="393" height="90"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKx-Np-jAE">
+                                    <rect key="frame" x="16" y="17" width="361" height="56"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="56" id="Hqd-mT-pQ6"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Search">
+                                        <backgroundConfiguration key="background" cornerRadius="14"/>
+                                        <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="17"/>
+                                    </buttonConfiguration>
+                                    <connections>
+                                        <action selector="searchButtonPressed:" destination="ZPA-at-Yf6" eventType="touchUpInside" id="V1G-cK-y7R"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="KKx-Np-jAE" secondAttribute="trailing" constant="16" id="81T-IB-Mfe"/>
+                                <constraint firstItem="KKx-Np-jAE" firstAttribute="top" secondItem="L1f-eV-NVP" secondAttribute="top" constant="17" id="U0H-WD-hIk"/>
+                                <constraint firstAttribute="bottom" secondItem="KKx-Np-jAE" secondAttribute="bottom" constant="17" id="cLh-oB-PkF"/>
+                                <constraint firstItem="KKx-Np-jAE" firstAttribute="leading" secondItem="L1f-eV-NVP" secondAttribute="leading" constant="16" id="saH-eL-WHd"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CityNameCell" id="gbr-3m-5sb" customClass="CityNameCell" customModule="WeatherRecruitmentTask" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="393" height="45.666667938232422"/>
+                                <rect key="frame" x="0.0" y="50" width="393" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gbr-3m-5sb" id="y8p-6H-kbg">
-                                    <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="45.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="45"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2f-Ip-2aG">
-                                            <rect key="frame" x="20" y="12.000000000000002" width="42" height="21.666666666666671"/>
+                                            <rect key="frame" x="20" y="12" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -41,7 +68,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InputCell" id="eoy-8S-aq7" customClass="InputCell" customModule="WeatherRecruitmentTask" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="95.666667938232422" width="393" height="50.333332061767578"/>
+                                <rect key="frame" x="0.0" y="95" width="393" height="50.333332061767578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eoy-8S-aq7" id="xIr-cY-k2h">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="50.333332061767578"/>
@@ -71,10 +98,127 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Welcome" id="XR4-VD-FY2"/>
+                    <connections>
+                        <segue destination="9Bn-xA-onA" kind="show" identifier="showWeather" id="F8C-YQ-FQa"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uK5-Vo-3yF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="591.60305343511448" y="9.8591549295774659"/>
+        </scene>
+        <!-- - -->
+        <scene sceneID="7qJ-rT-cgp">
+            <objects>
+                <tableViewController id="9Bn-xA-onA" customClass="WeatherViewController" customModule="WeatherRecruitmentTask" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Ko3-lT-A9F">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WeatherOverviewCell" rowHeight="251" id="lID-sz-ADH" customClass="WeatherOverviewCell" customModule="WeatherRecruitmentTask" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="251"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lID-sz-ADH" id="tTH-OZ-PGA">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="251"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hBQ-Y3-587">
+                                            <rect key="frame" x="131.66666666666666" y="13.666666666666657" width="129.99999999999997" height="125"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="130" id="Cv2-87-Uq4"/>
+                                                <constraint firstAttribute="height" constant="130" id="abS-d4-l1g"/>
+                                            </constraints>
+                                            <imageReference key="image" image="cloud.fill" catalog="system" renderingMode="original"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2EP-6r-tEb">
+                                            <rect key="frame" x="196.66666666666666" y="149" width="0.0" height="33"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTB-qE-7Up">
+                                            <rect key="frame" x="20" y="190" width="353" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="50" id="vZQ-y6-Mnx"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="DTB-qE-7Up" firstAttribute="bottom" secondItem="tTH-OZ-PGA" secondAttribute="bottomMargin" id="7tO-zc-gBi"/>
+                                        <constraint firstItem="DTB-qE-7Up" firstAttribute="leading" secondItem="tTH-OZ-PGA" secondAttribute="leadingMargin" id="9Cv-vS-caX"/>
+                                        <constraint firstItem="DTB-qE-7Up" firstAttribute="top" secondItem="2EP-6r-tEb" secondAttribute="bottom" constant="8" id="LYU-6b-No6"/>
+                                        <constraint firstItem="2EP-6r-tEb" firstAttribute="top" secondItem="hBQ-Y3-587" secondAttribute="bottom" constant="8" id="Zvr-Aj-PTG"/>
+                                        <constraint firstItem="2EP-6r-tEb" firstAttribute="centerX" secondItem="tTH-OZ-PGA" secondAttribute="centerX" id="e5n-P6-Hyw"/>
+                                        <constraint firstItem="hBQ-Y3-587" firstAttribute="centerX" secondItem="tTH-OZ-PGA" secondAttribute="centerX" id="edh-MV-eVz"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="DTB-qE-7Up" secondAttribute="trailing" id="wlf-xi-zPj"/>
+                                        <constraint firstItem="hBQ-Y3-587" firstAttribute="top" secondItem="tTH-OZ-PGA" secondAttribute="topMargin" id="zhC-KJ-x7a"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="conditionLabel" destination="2EP-6r-tEb" id="vjo-DX-S0f"/>
+                                    <outlet property="symbolImageView" destination="hBQ-Y3-587" id="IVi-JB-Qdd"/>
+                                    <outlet property="tempLabel" destination="DTB-qE-7Up" id="1qM-j0-abQ"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WeatherDetailCell" id="Lts-Vl-vET" customClass="WeatherDetailCell" customModule="WeatherRecruitmentTask" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="301" width="393" height="24.333333969116211"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lts-Vl-vET" id="prK-sv-OfU">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="24.333333969116211"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdF-A3-lAI">
+                                            <rect key="frame" x="20" y="12" width="0.0" height="0.33333333333333393"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGf-6d-k5C">
+                                            <rect key="frame" x="373" y="12" width="0.0" height="0.33333333333333393"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="KdF-A3-lAI" firstAttribute="leading" secondItem="prK-sv-OfU" secondAttribute="leadingMargin" id="SWu-zu-mwk"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="KdF-A3-lAI" secondAttribute="bottom" constant="1" id="TiS-kz-lhU"/>
+                                        <constraint firstItem="KdF-A3-lAI" firstAttribute="top" secondItem="prK-sv-OfU" secondAttribute="topMargin" constant="1" id="V4T-YN-S3I"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="eGf-6d-k5C" secondAttribute="bottom" constant="1" id="hSH-ac-fnL"/>
+                                        <constraint firstItem="eGf-6d-k5C" firstAttribute="top" secondItem="prK-sv-OfU" secondAttribute="topMargin" constant="1" id="nhQ-9K-n4n"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="eGf-6d-k5C" secondAttribute="trailing" id="swF-Lx-nwN"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="KdF-A3-lAI" id="QZg-3E-dpE"/>
+                                    <outlet property="valueLabel" destination="eGf-6d-k5C" id="Rk5-F6-2LG"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9Bn-xA-onA" id="EYB-do-lfM"/>
+                            <outlet property="delegate" destination="9Bn-xA-onA" id="KT1-15-p2z"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="---" id="cmc-8f-NaJ">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="apM-zX-Xlu">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="GK9-NL-Vie">
+                                <rect key="frame" x="290" y="5.6666666666666679" width="87" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="C"/>
+                                    <segment title="F"/>
+                                </segments>
+                            </segmentedControl>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="heL-Aq-WML" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1490.8396946564885" y="9.8591549295774659"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rl2-4b-wHr">
@@ -94,6 +238,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cloud.fill" catalog="system" width="128" height="87"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

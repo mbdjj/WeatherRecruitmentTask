@@ -126,7 +126,7 @@ class WeatherViewController: UITableViewController {
     private func presentAlert() {
         let alert = UIAlertController(
             title: "Not found",
-            message: "Sorry we could not dind the city\nPlease try again with correct entry",
+            message: "Sorry we could not find the city\nPlease try again with correct entry",
             preferredStyle: .alert
         )
         

@@ -23,7 +23,7 @@ class WeatherViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.reloadData()
-        bindTitle()
+        bindAlert()
         bindTableView()
         bindSegmentedControl()
     }
@@ -63,11 +63,11 @@ class WeatherViewController: UITableViewController {
     
     // MARK: - Rx methods
     
-    private func bindTitle() {
-        model?.weatherData.asObservable()
-            .subscribe(onNext: { [unowned self] data in
-                DispatchQueue.main.async {
-                    self.navigationItem.title = data?.name ?? "---"
+    private func bindAlert() {
+        model?.showAlert.asObservable()
+            .subscribe(onNext: { [unowned self] showAlert in
+                if showAlert {
+                    presentAlert()
                 }
             })
             .disposed(by: disposeBag)
@@ -76,6 +76,9 @@ class WeatherViewController: UITableViewController {
     private func bindTableView() {
         model?.weatherData.asObservable()
             .subscribe(onNext: { [unowned self] data in
+                DispatchQueue.main.async {
+                    self.navigationItem.title = data?.name ?? "---"
+                }
                 refreshData(with: data)
             })
             .disposed(by: disposeBag)
@@ -118,6 +121,24 @@ class WeatherViewController: UITableViewController {
             sunriseCell.valueLabel.text = data?.sys.sunrise.toTimeOfDay(timezone)
             let sunsetCell = self.tableView.cellForRow(at: IndexPath(row: 6, section: 1)) as! WeatherDetailCell
             sunsetCell.valueLabel.text = data?.sys.sunset.toTimeOfDay(timezone)
+        }
+    }
+    
+    private func presentAlert() {
+        let alert = UIAlertController(
+            title: "Not found",
+            message: "Sorry we could not dind the city\nPlease try again with correct entry",
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(okAction)
+        
+        self.present(alert, animated: true)
+        DispatchQueue.main.async {
+            self.model?.showAlert.accept(false)
         }
     }
     

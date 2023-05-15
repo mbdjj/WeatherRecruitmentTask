@@ -12,6 +12,7 @@ import RxCocoa
 class WeatherViewModel {
     
     var weatherData: BehaviorRelay<WeatherData?> = BehaviorRelay(value: nil)
+    var showAlert: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     let network = NetworkManager()
     
@@ -21,6 +22,9 @@ class WeatherViewModel {
                 let weather = try await network.fetchWeatherDataDeprecated(for: cityName)
                 weatherData.accept(weather)
             } catch {
+                DispatchQueue.main.async {
+                    self.showAlert.accept(true)
+                }
                 print(error.localizedDescription)
             }
         }
@@ -32,6 +36,9 @@ class WeatherViewModel {
                 let weather = try await network.fetchWeatherData(lat: lat, lon: lon)
                 weatherData.accept(weather)
             } catch {
+                DispatchQueue.main.async {
+                    self.showAlert.accept(true)
+                }
                 print(error.localizedDescription)
             }
         }

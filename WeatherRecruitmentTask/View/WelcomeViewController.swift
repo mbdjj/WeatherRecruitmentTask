@@ -9,9 +9,6 @@ import UIKit
 
 class WelcomeViewController: UITableViewController {
     
-    let cellArray = ["Delhi", "Berlin", "Toronto", "Latitude", "Longitude", "City name"]
-    let headersArray = ["Choose a city", "Search a location", "Search a city"]
-    
     var callType: WeatherCallType = .none
     var determinedCity: String = ""
     
@@ -28,7 +25,7 @@ class WelcomeViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return headersArray[section]
+        return CellData.welcomeHeadersArray[section]
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,19 +37,19 @@ class WelcomeViewController: UITableViewController {
         case 0:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "CityNameCell") as! CityNameCell
-            cell.cityLabel.text = cellArray[indexPath.item]
+            cell.cityLabel.text = CellData.welcomeCellArray[indexPath.item]
             return cell
             
         case 1:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "InputCell") as! InputCell
-            cell.inputTextField.placeholder = cellArray[indexPath.item + 3]
+            cell.inputTextField.placeholder = CellData.welcomeCellArray[indexPath.item + 3]
             return cell
             
         case 2:
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "InputCell") as! InputCell
-            cell.inputTextField.placeholder = cellArray[5]
+            cell.inputTextField.placeholder = CellData.welcomeCellArray[5]
             return cell
             
         default:
@@ -62,7 +59,7 @@ class WelcomeViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            determinedCity = cellArray[indexPath.item]
+            determinedCity = CellData.welcomeCellArray[indexPath.item]
             callType = .cityDetermined
             tableView.deselectRow(at: indexPath, animated: true)
             performSegue(withIdentifier: "showWeather", sender: nil)

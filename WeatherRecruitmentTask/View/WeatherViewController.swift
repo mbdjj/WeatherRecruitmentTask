@@ -11,10 +11,12 @@ import RxCocoa
 
 class WeatherViewController: UITableViewController {
     
-    let detailsArray = ["Min temperature", "Max temperature", "Cloud coverage", "Latitude", "Longitude", "Sunrise", "Sunset"]
+    private let detailsArray = ["Min temperature", "Max temperature", "Cloud coverage", "Latitude", "Longitude", "Sunrise", "Sunset"]
+    private var isCelsius = true
+    
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     var model: WeatherViewModel?
-    
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -23,6 +25,7 @@ class WeatherViewController: UITableViewController {
         tableView.reloadData()
         bindTitle()
         bindTableView()
+        bindSegmentedControl()
     }
     
     // MARK: - TableView methods
@@ -73,34 +76,49 @@ class WeatherViewController: UITableViewController {
     private func bindTableView() {
         model?.weatherData.asObservable()
             .subscribe(onNext: { [unowned self] data in
-                DispatchQueue.main.async {
-                    let overviewCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! WeatherOverviewCell
-                    let config = UIImage.SymbolConfiguration(hierarchicalColor: .label)
-                    overviewCell.symbolImageView.image = self.model?.icon(for: data?.weather.first!.id ?? 0)?.applyingSymbolConfiguration(config)
-                    overviewCell.conditionLabel.text = data?.weather.first!.main ?? ""
-                    overviewCell.tempLabel.text = self.model?.temperatureString(from: data?.main.temp, to: .celsius)
-                    
-                    let minTempCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! WeatherDetailCell
-                    minTempCell.valueLabel.text = self.model?.temperatureString(from: data?.main.tempMin, to: .celsius)
-                    let maxTempCell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! WeatherDetailCell
-                    maxTempCell.valueLabel.text = self.model?.temperatureString(from: data?.main.tempMax, to: .celsius)
-                    
-                    let cloudsCell = self.tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! WeatherDetailCell
-                    cloudsCell.valueLabel.text = data?.clouds.all.percentString()
-                    
-                    let latCell = self.tableView.cellForRow(at: IndexPath(row: 3, section: 1)) as! WeatherDetailCell
-                    latCell.valueLabel.text = data?.coord.lat.toString()
-                    let lonCell = self.tableView.cellForRow(at: IndexPath(row: 4, section: 1)) as! WeatherDetailCell
-                    lonCell.valueLabel.text = data?.coord.lon.toString()
-                    
-                    let timezone = data?.timezone ?? 0
-                    let sunriseCell = self.tableView.cellForRow(at: IndexPath(row: 5, section: 1)) as! WeatherDetailCell
-                    sunriseCell.valueLabel.text = data?.sys.sunrise.toTimeOfDay(timezone)
-                    let sunsetCell = self.tableView.cellForRow(at: IndexPath(row: 6, section: 1)) as! WeatherDetailCell
-                    sunsetCell.valueLabel.text = data?.sys.sunset.toTimeOfDay(timezone)
-                }
+                refreshData(with: data)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func bindSegmentedControl() {
+        segmentedControl.rx.selectedSegmentIndex
+            .subscribe(onNext: { [unowned self] index in
+                self.isCelsius = index == 0
+                refreshData(with: model?.weatherData.value)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func refreshData(with data: WeatherData?) {
+        DispatchQueue.main.async {
+            let unit: UnitTemperature = self.isCelsius ? .celsius : .fahrenheit
+            
+            let overviewCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! WeatherOverviewCell
+            let config = UIImage.SymbolConfiguration(hierarchicalColor: .label)
+            overviewCell.symbolImageView.image = self.model?.icon(for: data?.weather.first!.id ?? 0)?.applyingSymbolConfiguration(config)
+            overviewCell.conditionLabel.text = data?.weather.first!.main ?? ""
+            overviewCell.tempLabel.text = self.model?.temperatureString(from: data?.main.temp, to: unit)
+            
+            let minTempCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! WeatherDetailCell
+            minTempCell.valueLabel.text = self.model?.temperatureString(from: data?.main.tempMin, to: unit)
+            let maxTempCell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! WeatherDetailCell
+            maxTempCell.valueLabel.text = self.model?.temperatureString(from: data?.main.tempMax, to: unit)
+            
+            let cloudsCell = self.tableView.cellForRow(at: IndexPath(row: 2, section: 1)) as! WeatherDetailCell
+            cloudsCell.valueLabel.text = data?.clouds.all.percentString()
+            
+            let latCell = self.tableView.cellForRow(at: IndexPath(row: 3, section: 1)) as! WeatherDetailCell
+            latCell.valueLabel.text = data?.coord.lat.toString()
+            let lonCell = self.tableView.cellForRow(at: IndexPath(row: 4, section: 1)) as! WeatherDetailCell
+            lonCell.valueLabel.text = data?.coord.lon.toString()
+            
+            let timezone = data?.timezone ?? 0
+            let sunriseCell = self.tableView.cellForRow(at: IndexPath(row: 5, section: 1)) as! WeatherDetailCell
+            sunriseCell.valueLabel.text = data?.sys.sunrise.toTimeOfDay(timezone)
+            let sunsetCell = self.tableView.cellForRow(at: IndexPath(row: 6, section: 1)) as! WeatherDetailCell
+            sunsetCell.valueLabel.text = data?.sys.sunset.toTimeOfDay(timezone)
+        }
     }
     
 }

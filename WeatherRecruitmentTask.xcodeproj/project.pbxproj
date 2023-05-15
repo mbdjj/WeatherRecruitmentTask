@@ -403,6 +403,7 @@
 				DEVELOPMENT_TEAM = CMJ553K76W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherRecruitmentTask/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Recruitment;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -432,6 +433,7 @@
 				DEVELOPMENT_TEAM = CMJ553K76W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherRecruitmentTask/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Recruitment;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

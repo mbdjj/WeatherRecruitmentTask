@@ -42,6 +42,7 @@ class WeatherViewModel {
         
         let formatter = MeasurementFormatter()
         formatter.locale = Locale(identifier: "US_en")
+        formatter.unitOptions = .providedUnit
         formatter.numberFormatter.maximumFractionDigits = 0
         
         let kel = Measurement(value: kelvin, unit: UnitTemperature.kelvin)

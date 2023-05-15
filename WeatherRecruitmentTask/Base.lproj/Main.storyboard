@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="L1f-eV-NVP">
-                            <rect key="frame" x="0.0" y="173.33333206176758" width="393" height="90"/>
+                            <rect key="frame" x="0.0" y="174" width="393" height="90"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKx-Np-jAE">
@@ -44,14 +44,14 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CityNameCell" id="gbr-3m-5sb" customClass="CityNameCell" customModule="WeatherRecruitmentTask" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="393" height="45"/>
+                                <rect key="frame" x="0.0" y="50" width="393" height="45.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gbr-3m-5sb" id="y8p-6H-kbg">
-                                    <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="45"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="362.66666666666669" height="45.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i2f-Ip-2aG">
-                                            <rect key="frame" x="20" y="12" width="42" height="21"/>
+                                            <rect key="frame" x="20" y="12.000000000000002" width="42" height="21.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InputCell" id="eoy-8S-aq7" customClass="InputCell" customModule="WeatherRecruitmentTask" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="95" width="393" height="50.333332061767578"/>
+                                <rect key="frame" x="0.0" y="95.666667938232422" width="393" height="50.333332061767578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eoy-8S-aq7" id="xIr-cY-k2h">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="50.333332061767578"/>
@@ -215,6 +215,9 @@
                             </segmentedControl>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="segmentedControl" destination="GK9-NL-Vie" id="98Q-FZ-As5"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heL-Aq-WML" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

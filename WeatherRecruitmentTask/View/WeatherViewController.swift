@@ -11,7 +11,6 @@ import RxCocoa
 
 class WeatherViewController: UITableViewController {
     
-    private let detailsArray = ["Min temperature", "Max temperature", "Cloud coverage", "Latitude", "Longitude", "Sunrise", "Sunset"]
     private var isCelsius = true
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -39,7 +38,7 @@ class WeatherViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 0 ? 1 : detailsArray.count
+        section == 0 ? 1 : CellData.weatherDetailsArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,7 +48,7 @@ class WeatherViewController: UITableViewController {
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherDetailCell") as! WeatherDetailCell
-            cell.nameLabel.text = detailsArray[indexPath.item]
+            cell.nameLabel.text = CellData.weatherDetailsArray[indexPath.item]
             return cell
         default:
             return UITableViewCell()

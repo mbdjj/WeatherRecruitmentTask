@@ -9,7 +9,7 @@ import Foundation
 
 struct NetworkManager {
     
-    let apiKey = ""
+    let apiKey = "6ff12cdab4cf3c16e09cb73b94853d77"
     
     func fetchWeatherData(for city: String) async throws -> WeatherData {
         let cityURLFriendly = city.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!

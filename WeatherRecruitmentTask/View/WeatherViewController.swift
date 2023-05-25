@@ -11,53 +11,20 @@ import RxCocoa
 
 class WeatherViewController: UITableViewController {
     
-    private var isCelsius = true
-    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    var model: WeatherViewModel?
+    private var isCelsius = true
     private let disposeBag = DisposeBag()
+    
+    var model: WeatherViewModel?
+    let numberOfSections = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.reloadData()
         bindAlert()
         bindTableView()
         bindSegmentedControl()
-    }
-    
-    // MARK: - TableView methods
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ? nil : "Details"
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 0 ? 1 : CellData.weatherDetailsArray.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherOverviewCell") as! WeatherOverviewCell
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherDetailCell") as! WeatherDetailCell
-            cell.nameLabel.text = CellData.weatherDetailsArray[indexPath.item]
-            return cell
-        default:
-            return UITableViewCell()
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        tableView.deselectRow(at: indexPath, animated: false)
-        return nil
     }
     
     // MARK: - Rx methods
@@ -123,21 +90,58 @@ class WeatherViewController: UITableViewController {
         }
     }
     
+    // MARK: - TableView methods
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return numberOfSections
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? nil : "Details"
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 1 : CellData.weatherDetailsArray.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherOverviewCell") as! WeatherOverviewCell
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherDetailCell") as! WeatherDetailCell
+            cell.nameLabel.text = CellData.weatherDetailsArray[indexPath.item]
+            return cell
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        tableView.deselectRow(at: indexPath, animated: false)
+        return nil
+    }
+    
+    // MARK: - Presenting alert
+    
     private func presentAlert() {
         let alert = UIAlertController(
             title: "Not found",
             message: "Sorry we could not find the city\nPlease try again with correct entry",
             preferredStyle: .alert
         )
-        
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-            self.navigationController?.popViewController(animated: true)
-        }
-        alert.addAction(okAction)
+        alert.addAction(okAction())
         
         self.present(alert, animated: true)
         DispatchQueue.main.async {
             self.model?.showAlert.accept(false)
+        }
+    }
+    
+    private func okAction() -> UIAlertAction {
+        return UIAlertAction(title: "OK", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

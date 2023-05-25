@@ -12,16 +12,16 @@ class WelcomeViewController: UITableViewController {
     var callType: WeatherCallType = .none
     var determinedCity: String = ""
     
+    private let numberOfSections = 3
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
     }
     
     // MARK: - TableView methods
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return numberOfSections
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -35,23 +35,17 @@ class WelcomeViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: "CityNameCell") as! CityNameCell
             cell.cityLabel.text = CellData.welcomeCellArray[indexPath.item]
             return cell
-            
         case 1:
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: "InputCell") as! InputCell
             cell.inputTextField.placeholder = CellData.welcomeCellArray[indexPath.item + 3]
             return cell
-            
         case 2:
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: "InputCell") as! InputCell
             cell.inputTextField.placeholder = CellData.welcomeCellArray[5]
             return cell
-            
         default:
             return UITableViewCell()
         }
@@ -59,10 +53,7 @@ class WelcomeViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            determinedCity = CellData.welcomeCellArray[indexPath.item]
-            callType = .cityDetermined
-            tableView.deselectRow(at: indexPath, animated: true)
-            performSegue(withIdentifier: "showWeather", sender: nil)
+            handleCityTap(at: indexPath)
         } else {
             tableView.deselectRow(at: indexPath, animated: true)
         }
@@ -108,6 +99,15 @@ class WelcomeViewController: UITableViewController {
         case .none:
             break
         }
+    }
+    
+    // MARK: - methods
+    
+    func handleCityTap(at indexPath: IndexPath) {
+        determinedCity = CellData.welcomeCellArray[indexPath.item]
+        callType = .cityDetermined
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "showWeather", sender: nil)
     }
     
 }
